@@ -12,7 +12,7 @@ In a browser:
 
 ## Acknowledgements
 
-Thanks to Diego Perini for [his `getScrollingElement` implementation](https://gist.github.com/dperini/ac3d921d6a08f10fd10e), and for allowing me to re-use it as part of this polyfill.
+Thanks to [Diego Perini](https://github.com/dperini) ([@diegoperini](https://twitter.com/diegoperini)) for [his `getScrollingElement` implementation](https://gist.github.com/dperini/ac3d921d6a08f10fd10e), and for allowing me to re-use it as part of this polyfill.
 
 Thanks to [Simon Pieters](https://simon.html5.org/) ([@zcorpan](https://twitter.com/zcorpan)) for reviewing the code.
 
