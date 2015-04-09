@@ -7,6 +7,7 @@ A polyfill for [`document.scrollingElement` as defined in the CSSOM specificatio
 In a browser:
 
 ```html
+<!-- Place this in the <body>, not in the <head>! -->
 <script src="scrollingelement.js"></script>
 ```
 
