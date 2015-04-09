@@ -25,8 +25,6 @@
 		"scrollingelement.js"
 	],
 	"directories": {
-		"bin": "bin",
-		"man": "man",
 		"test": "tests"
 	},
 	"scripts": {
