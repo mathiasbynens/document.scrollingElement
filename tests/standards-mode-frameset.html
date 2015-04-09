@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<head>
+	<!-- Adding the script below `<frameset>` causes it to be ignored. Adding
+	it to the `<head>` with `defer` makes it work, kind of. Sometimes the test
+	fails due to a race condition; in that case, just try again. -->
+	<script src="../scrollingelement.js" defer></script>
+</head>
+<frameset>
+	<frame src="about:blank">
+</frameset>

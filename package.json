@@ -1,0 +1,38 @@
+{
+	"name": "scrollingelement",
+	"version": "0.0.0",
+	"description": "A `document.scrollingElement` polyfill.",
+	"homepage": "https://mths.be/scrollingelement",
+	"main": "scrollingelement.js",
+	"keywords": [
+		"cssom",
+		"dom",
+		"scrolling",
+		"scrollingelement"
+	],
+	"license": "MIT",
+	"author": {
+		"name": "Mathias Bynens",
+		"url": "https://mathiasbynens.be/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mathiasbynens/scrollingelement.git"
+	},
+	"bugs": "https://github.com/mathiasbynens/scrollingelement/issues",
+	"files": [
+		"LICENSE-MIT.txt",
+		"scrollingelement.js"
+	],
+	"directories": {
+		"bin": "bin",
+		"man": "man",
+		"test": "tests"
+	},
+	"scripts": {
+		"test": "http-server & sleep 1; open 'http://0.0.0.0:8080/tests/standards-mode.html'; open 'http://0.0.0.0:8080/tests/quirks-mode.html'; wait; killall node"
+	},
+	"devDependencies": {
+		"qunitjs": "^1.18.0"
+	}
+}
