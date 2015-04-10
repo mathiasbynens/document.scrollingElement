@@ -28,9 +28,27 @@ if (!('scrollingElement' in document)) {
 			return isFrameset ? null : body;
 		};
 
-		Object.defineProperty(document, 'scrollingElement', {
-			'get': scrollingElement
-		});
+		if ('defineProperty' in Object) {
+			Object.defineProperty(document, 'scrollingElement', {
+				'get': scrollingElement
+			});
+		} else if ('__defineGetter__' in document) {
+			// Firefox < 4, Safari < 5, Opera < 12
+			document.__defineGetter__('scrollingElement', scrollingElement);
+		} else {
+			// fallback
+			document.scrollingElement = scrollingElement();
+			if ('attachEvent' in document) {
+				// IE < 8 
+				document.attachEvent('onpropertychange', function() {
+					// We get a propertychange event when <body> is parsed
+					// because `document.activeElement` changes.
+					if (window.event.propertyName === 'activeElement') {
+						document.scrollingElement = scrollingElement();
+					}
+				});
+			}
+		}
 
 	}());
 
