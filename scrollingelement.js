@@ -1,17 +1,37 @@
 /*! https://mths.be/scrollingelement v1.0.0 by @diegoperini & @mathias | MIT license */
 if (!('scrollingElement' in document)) {
-	document.scrollingElement = (function() {
+	(function() {
+
 		var html = document.documentElement;
-		var body = document.body;
-		// Note: `document.body` could be a `frameset` element, or `null`.
-		// `tagName` is uppercase in HTML, but lowercase in XML.
-		var isFrameset = body && !/body/i.test(body.tagName);
-		if (
-			html.scrollHeight > body.scrollHeight &&
-			/^CSS1/.test(document.compatMode)
-		) {
-			return html;
+		var isCompliant = false;
+		var isStandardsMode = /^CSS1/.test(document.compatMode);
+
+		if (isStandardsMode) {
+			var iframe = document.createElement('iframe');
+			iframe.style.height = '1px';
+			(document.body || html).appendChild(iframe);
+			var doc = iframe.contentWindow.document;
+			doc.write('<!DOCTYPE html><div style="height:9999em">x</div>');
+			doc.close();
+			isCompliant = doc.documentElement.scrollHeight > doc.body.scrollHeight;
+			iframe.parentNode.removeChild(iframe);
 		}
-		return isFrameset ? null : body;
+
+		var scrollingElement = function() {
+			var body = document.body;
+			if (isStandardsMode && isCompliant) {
+				return html;
+			}
+			// Note: `document.body` could be a `frameset` element, or `null`.
+			// `tagName` is uppercase in HTML, but lowercase in XML.
+			var isFrameset = body && !/body/i.test(body.tagName);
+			return isFrameset ? null : body;
+		};
+
+		Object.defineProperty(document, 'scrollingElement', {
+			'get': scrollingElement
+		});
+
 	}());
+
 }

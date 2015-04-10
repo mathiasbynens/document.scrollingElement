@@ -4,10 +4,13 @@
 		<meta charset="utf-8">
 		<title>document.scrollingElement in quirks mode test</title>
 		<link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css">
+		<style>
+			iframe { width: 1px; height: 1px; border: 0; }
+		</style>
 	</head>
 	<body>
-		<div id="qunit"></div>
 		<iframe src="quirks-mode-frameset.html"></iframe>
+		<div id="qunit"></div>
 		<script src="../node_modules/qunitjs/qunit/qunit.js"></script>
 		<script src="../scrollingelement.js"></script>
 		<script src="tests.js"></script>

@@ -4,12 +4,13 @@ A polyfill for [`document.scrollingElement` as defined in the CSSOM specificatio
 
 ## Installation
 
-In a browser:
+In your HTML document:
 
 ```html
-<!-- Place this in the <body>, not in the <head>! -->
 <script src="scrollingelement.js"></script>
 ```
+
+It’s recommended to place this right before the closing `</body>` tag.
 
 ## Acknowledgements
 

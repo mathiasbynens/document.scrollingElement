@@ -1,9 +1,8 @@
 <!-- No DOCTYPE! This is intentional, as we want to test quirks mode behavior. -->
 <head>
-	<!-- Adding the script below `<frameset>` causes it to be ignored. Adding
-	it to the `<head>` with `defer` makes it work, kind of. Sometimes the test
-	fails due to a race condition; in that case, just try again. -->
-	<script src="../scrollingelement.js" defer></script>
+	<!-- Adding the script below `<frameset>` causes it to be ignored. For
+	`frameset` documents, it must be in the `<head>`. -->
+	<script src="../scrollingelement.js"></script>
 </head>
 <frameset>
 	<frame src="about:blank">
