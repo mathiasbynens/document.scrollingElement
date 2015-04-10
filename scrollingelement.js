@@ -19,7 +19,7 @@ if (!('scrollingElement' in document)) {
 
 		var scrollingElement = function() {
 			var body = document.body;
-			if (isStandardsMode && isCompliant) {
+			if (isCompliant) { // Note: this is `isStandardsMode && isCompliant`.
 				return html;
 			}
 			// Note: `document.body` could be a `frameset` element, or `null`.

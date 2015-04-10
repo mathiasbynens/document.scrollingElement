@@ -10,14 +10,14 @@
 		test('In standards mode in a non-frameset document, the scrolling element is supposed to be `HTML`', function() {
 			ok(
 				/HTML|BODY/.test(document.scrollingElement.tagName),
-				'In standards mode in a non-frameset document, the scrolling element is supposed to be `HTML`, but we’ll accept `BODY` too because that’s what WebKit/Blink use'
+				'In standards mode in a non-frameset document, the scrolling element is supposed to be `HTML`, but we’ll accept `BODY` too because that’s what WebKit/Blink use. Actual result: ' + document.scrollingElement.tagName
 			);
 		});
-		test('In standards mode in a frameset document, the scrolling element is `null`', function() {
-			strictEqual(
-				frameDoc.scrollingElement,
-				null,
-				'In standards mode in a frameset document, the scrolling element is `null`'
+		test('In standards mode in a frameset document, the scrolling element is supposed to be `HTML`', function() {
+			ok(
+				frameDoc.scrollingElement === frameDoc.documentElement ||
+				frameDoc.scrollingElement === null,
+				'In standards mode in a frameset document, the scrolling element is supposed to be `HTML`, but we’ll accept `null` too because that’s what it should be in WebKit/Blink. Actual result: ' + frameDoc.scrollingElement
 			);
 		});
 	}
