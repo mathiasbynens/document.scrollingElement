@@ -4,13 +4,15 @@ A polyfill for [`document.scrollingElement` as defined in the CSSOM specificatio
 
 ## Installation
 
-In your HTML document:
+In an HTML document:
 
 ```html
 <script src="scrollingelement.js"></script>
 ```
 
 It’s recommended to place this right before the closing `</body>` tag.
+
+The polyfill can be used in `frameset` HTML documents (in that case, place the `<script>` in the `<head>`) or in XML documents as well.
 
 ## Acknowledgements
 
