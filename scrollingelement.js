@@ -1,25 +1,33 @@
 /*! https://mths.be/scrollingelement v1.2.0 by @diegoperini & @mathias | MIT license */
 if (!('scrollingElement' in document)) (function() {
 
-	var html = document.documentElement;
-	var isCompliant = false;
-	var isStandardsMode = /^CSS1/.test(document.compatMode);
+	var isCompliantCached;
 
-	if (isStandardsMode) {
-		var iframe = document.createElement('iframe');
-		iframe.style.height = '1px';
-		(document.body || html).appendChild(iframe);
-		var doc = iframe.contentWindow.document;
-		doc.write('<!DOCTYPE html><div style="height:9999em">x</div>');
-		doc.close();
-		isCompliant = doc.documentElement.scrollHeight > doc.body.scrollHeight;
-		iframe.parentNode.removeChild(iframe);
-	}
+	var isCompliant = function() {
+		var isStandardsMode = /^CSS1/.test(document.compatMode);
+		if (!isStandardsMode) {
+			// Always non-compliant in quirks mode.
+			return false;
+		}
+		if (isCompliantCached === void 0) {
+			// When called for the first time, check whether the browser is
+			// standard-compliant, and cache the result.
+			var iframe = document.createElement('iframe');
+			iframe.style.height = '1px';
+			(document.body || document.documentElement).appendChild(iframe);
+			var doc = iframe.contentWindow.document;
+			doc.write('<!DOCTYPE html><div style="height:9999em">x</div>');
+			doc.close();
+			isCompliantCached = doc.documentElement.scrollHeight > doc.body.scrollHeight;
+			iframe.parentNode.removeChild(iframe);
+		}
+		return isCompliantCached;
+	};
 
 	var scrollingElement = function() {
 		var body = document.body;
-		if (isCompliant) { // Note: this is `isStandardsMode && isCompliant`.
-			return html;
+		if (isCompliant()) {
+			return document.documentElement;
 		}
 		// Note: `document.body` could be a `frameset` element, or `null`.
 		// `tagName` is uppercase in HTML, but lowercase in XML.
