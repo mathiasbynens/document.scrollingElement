@@ -35,10 +35,12 @@ if (!('scrollingElement' in document)) (function() {
 	} else if (document.__defineGetter__) {
 		// Support Firefox ≤ 3.6.9, Safari ≤ 4.1.3.
 		document.__defineGetter__('scrollingElement', scrollingElement);
-	} else if (document.attachEvent) {
-		// Support IE ≤ 7.
+	} else {
+		// IE ≤ 4 lacks `attachEvent`, so it only gets this one assignment. IE ≤ 7
+		// gets it too, but the value is updated later (see `propertychange`).
 		document.scrollingElement = scrollingElement();
-		document.attachEvent('onpropertychange', function() {
+		document.attachEvent && document.attachEvent('onpropertychange', function() {
+			// This is for IE ≤ 7 only.
 			// A `propertychange` event fires when `<body>` is parsed because
 			// `document.activeElement` then changes.
 			if (window.event.propertyName == 'activeElement') {
