@@ -29,27 +29,24 @@ if (!('scrollingElement' in document)) {
 		};
 
 		if ('defineProperty' in Object) {
+			// Support modern browsers that lack a native implementation.
 			Object.defineProperty(document, 'scrollingElement', {
 				'get': scrollingElement
 			});
 		} else if ('__defineGetter__' in document) {
-			// Firefox < 4, Safari < 5, Opera < 12
+			// Support Firefox ≤ 3.6.9, Safari ≤ 4.1.3.
 			document.__defineGetter__('scrollingElement', scrollingElement);
-		} else {
-			// fallback
+		} else if ('attachEvent' in document) {
+			// Support IE ≤ 7.
 			document.scrollingElement = scrollingElement();
-			if ('attachEvent' in document) {
-				// IE < 8 
-				document.attachEvent('onpropertychange', function() {
-					// We get a propertychange event when <body> is parsed
-					// because `document.activeElement` changes.
-					if (window.event.propertyName === 'activeElement') {
-						document.scrollingElement = scrollingElement();
-					}
-				});
-			}
+			document.attachEvent('onpropertychange', function() {
+				// A `propertychange` event fires when `<body>` is parsed because
+				// `document.activeElement` then changes.
+				if (window.event.propertyName == 'activeElement') {
+					document.scrollingElement = scrollingElement();
+				}
+			});
 		}
 
 	}());
-
 }
