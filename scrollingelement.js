@@ -27,15 +27,15 @@ if (!('scrollingElement' in document)) (function() {
 		return isFrameset ? null : body;
 	};
 
-	if ('defineProperty' in Object) {
+	if (Object.defineProperty) {
 		// Support modern browsers that lack a native implementation.
 		Object.defineProperty(document, 'scrollingElement', {
 			'get': scrollingElement
 		});
-	} else if ('__defineGetter__' in document) {
+	} else if (document.__defineGetter__) {
 		// Support Firefox ≤ 3.6.9, Safari ≤ 4.1.3.
 		document.__defineGetter__('scrollingElement', scrollingElement);
-	} else if ('attachEvent' in document) {
+	} else if (document.attachEvent) {
 		// Support IE ≤ 7.
 		document.scrollingElement = scrollingElement();
 		document.attachEvent('onpropertychange', function() {
