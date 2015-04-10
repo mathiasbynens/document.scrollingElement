@@ -17,7 +17,7 @@
 			ok(
 				frameDoc.scrollingElement === frameDoc.documentElement ||
 				frameDoc.scrollingElement === null,
-				'In standards mode in a frameset document, the scrolling element is supposed to be `HTML`, but we’ll accept `null` too because that’s what it should be in WebKit/Blink. Actual result: ' + frameDoc.scrollingElement
+				'[flaky test; retry as needed] In standards mode in a frameset document, the scrolling element is supposed to be `HTML`, but we’ll accept `null` too because that’s what it should be in WebKit/Blink. Actual result: ' + frameDoc.scrollingElement
 			);
 		});
 	}
@@ -33,7 +33,7 @@
 			strictEqual(
 				frameDoc.scrollingElement,
 				null,
-				'In quirks mode in a frameset document, the scrolling element is `null`'
+				'[flaky test; retry as needed] In quirks mode in a frameset document, the scrolling element is `null`'
 			);
 		});
 	}
