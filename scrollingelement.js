@@ -1,12 +1,14 @@
 /*! https://mths.be/scrollingelement v1.2.0 by @diegoperini & @mathias | MIT license */
 if (!('scrollingElement' in document)) (function() {
 
+	// Note: standards mode / quirks mode can be toggled at runtime via
+	// `document.write`.
 	var isCompliantCached;
-
 	var isCompliant = function() {
 		var isStandardsMode = /^CSS1/.test(document.compatMode);
 		if (!isStandardsMode) {
-			// Always non-compliant in quirks mode.
+			// In quirks mode, the result is equivalent to the non-compliant
+			// standards mode behavior.
 			return false;
 		}
 		if (isCompliantCached === void 0) {
