@@ -2,6 +2,7 @@
 	'use strict';
 
 	var frameDoc = document.getElementsByTagName('iframe')[0].contentDocument;
+
 	function isStandardsMode() {
 		return /^CSS1/.test(document.compatMode);
 	}
@@ -11,7 +12,7 @@
 		var origDocElem = document.documentElement;
 		var headHTML = document.head.innerHTML;
 		var qunitDiv = document.getElementById('qunit');
-		document.close(); // Just in case
+		document.close(); // Just in case…
 		document.open();
 		document.write(htmlPrefix + '<html><head>' + headHTML + '</head><body></body></html>');
 		document.close();
@@ -45,7 +46,6 @@
 		});
 		test('after switching to quirks mode in a non-frameset document, the scrolling element is `BODY`', function() {
 			documentWritePreserveQunit(false);
-
 			strictEqual(
 				document.scrollingElement,
 				document.body,
@@ -69,7 +69,6 @@
 		});
 		test('after switching to standards mode in a non-frameset document, the scrolling element is supposed to be `HTML`', function() {
 			documentWritePreserveQunit(true);
-
 			ok(
 				document.scrollingElement === document.body ||
 				document.scrollingElement === document.documentElement,
