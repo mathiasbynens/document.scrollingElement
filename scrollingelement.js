@@ -1,5 +1,29 @@
 /*! https://mths.be/scrollingelement v1.3.0 by @diegoperini & @mathias | MIT license */
 if (!('scrollingElement' in document)) (function() {
+	function isBodyElement(element) {
+		// The `instanceof` check gives the correct result for e.g. `body` in a
+		// non-HTML namespace.
+		if (window.HTMLBodyElement) {
+			return element instanceof HTMLBodyElement;
+		}
+		// Fall back to a `tagName` check for old browsers.
+		return /body/i.test(element.tagName);
+	}
+	function getNextBodyElement(frameset) {
+		// We use this function to be correct per spec in case `document.body` is
+		// a `frameset` but there exists a later `body`. Since `document.body` is
+		// a `frameset`, we know the root is an `html`, and there was no `body`
+		// before the `frameset`, so we just need to look at siblings after the
+		// `frameset`.
+		var current = frameset;
+		while (current = current.nextSibling) {
+			if (current.nodeType == 1 && isBodyElement(current)) {
+				return current;
+			}
+		}
+		// No `body` found.
+		return null;
+	}
 
 	// Note: standards mode / quirks mode can be toggled at runtime via
 	// `document.write`.
@@ -34,7 +58,7 @@ if (!('scrollingElement' in document)) (function() {
 		// Note: `document.body` could be a `frameset` element, or `null`.
 		// `tagName` is uppercase in HTML, but lowercase in XML.
 		var isFrameset = body && !/body/i.test(body.tagName);
-		return isFrameset ? null : body;
+		return isFrameset ? getNextBodyElement(body) : body;
 	};
 
 	if (Object.defineProperty) {
