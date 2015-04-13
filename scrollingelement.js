@@ -1,4 +1,4 @@
-/*! https://mths.be/scrollingelement v1.2.0 by @diegoperini & @mathias | MIT license */
+/*! https://mths.be/scrollingelement v1.3.0 by @diegoperini & @mathias | MIT license */
 if (!('scrollingElement' in document)) (function() {
 
 	// Note: standards mode / quirks mode can be toggled at runtime via
