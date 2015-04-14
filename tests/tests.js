@@ -7,6 +7,12 @@
 		return /^CSS1/.test(document.compatMode);
 	}
 
+	QUnit.testDone(function(details) {
+		// Clean up after tests that set style attributes.
+		document.documentElement.removeAttribute('style');
+		document.body.removeAttribute('style');
+	});
+
 	function documentWritePreserveQunit(willBeStandardsMode) {
 		var htmlPrefix = willBeStandardsMode ? '<!DOCTYPE html>' : '<!-- no doctype = quirks mode -->';
 		var origDocElem = document.documentElement;
@@ -65,6 +71,24 @@
 				frameDoc.scrollingElement,
 				null,
 				'[flaky test; retry as needed] In quirks mode in a frameset document, the scrolling element is `null`'
+			);
+		});
+		test('In quirks mode, if the `BODY` is scrollable, the scrolling element is `null`', function() {
+			document.documentElement.setAttribute('style', 'overflow: scroll');
+			document.body.setAttribute('style', 'overflow: scroll');
+			strictEqual(
+				document.scrollingElement,
+				null,
+				'In quirks mode, if the `BODY` is scrollable, the scrolling element is `null`'
+			);
+		});
+		test('In quirks mode, if the `BODY` is `display: none`, the scrolling element is `BODY`', function() {
+			document.documentElement.setAttribute('style', 'overflow: scroll');
+			document.body.setAttribute('style', 'overflow: scroll; display: none');
+			strictEqual(
+				document.scrollingElement,
+				document.body,
+				'In quirks mode, if the `BODY` is `display: none`, the scrolling element is `BODY`'
 			);
 		});
 		test('after switching to standards mode in a non-frameset document, the scrolling element is supposed to be `HTML`', function() {
