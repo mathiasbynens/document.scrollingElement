@@ -10,7 +10,7 @@
 	function documentWritePreserveQunit(willBeStandardsMode) {
 		var htmlPrefix = willBeStandardsMode ? '<!DOCTYPE html>' : '<!-- no doctype = quirks mode -->';
 		var origDocElem = document.documentElement;
-		var headHTML = document.head.innerHTML;
+		var headHTML = document.getElementsByTagName('head')[0].innerHTML;
 		var qunitDiv = document.getElementById('qunit');
 		document.close(); // Just in case…
 		document.open();
