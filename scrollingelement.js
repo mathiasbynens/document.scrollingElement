@@ -72,7 +72,7 @@ if (!('scrollingElement' in document)) (function() {
 		var isFrameset = body && !/body/i.test(body.tagName);
 		body = isFrameset ? getNextBodyElement(body) : body;
 		// If `body` is itself scrollable, it is not the `scrollingElement`.
-		return isScrollable(body) ? null : body;
+		return body && isScrollable(body) ? null : body;
 	};
 
 	if (Object.defineProperty) {
