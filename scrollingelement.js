@@ -40,7 +40,7 @@ if (!('scrollingElement' in document)) (function() {
 			// standard-compliant, and cache the result.
 			var iframe = document.createElement('iframe');
 			iframe.style.height = '1px';
-			(document.body || document.documentElement).appendChild(iframe);
+			(document.body || document.documentElement || document).appendChild(iframe);
 			var doc = iframe.contentWindow.document;
 			doc.write('<!DOCTYPE html><div style="height:9999em">x</div>');
 			doc.close();
