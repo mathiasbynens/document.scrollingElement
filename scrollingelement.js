@@ -1,4 +1,4 @@
-/*! https://mths.be/scrollingelement v1.4.0 by @diegoperini & @mathias | MIT license */
+/*! https://mths.be/scrollingelement v1.5.0 by @diegoperini & @mathias | MIT license */
 if (!('scrollingElement' in document)) (function() {
 	function isBodyElement(element) {
 		// The `instanceof` check gives the correct result for e.g. `body` in a
