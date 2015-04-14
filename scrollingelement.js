@@ -49,6 +49,18 @@ if (!('scrollingElement' in document)) (function() {
 		}
 		return isCompliantCached;
 	};
+	function isRendered(style) {
+		return style.display != 'none' && !(style.visibility == 'collapse' &&
+			/^table-(.+-group|row|column)$/.test(style.display));
+	}
+	function isScrollable(body) {
+		// A `body` element is scrollable if `body` and `html` both have
+		// non-`visible` overflow and are both being rendered.
+		var bodyStyle = getComputedStyle(body);
+		var htmlStyle = getComputedStyle(document.documentElement);
+		return bodyStyle.overflow != 'visible' && htmlStyle.overflow != 'visible' &&
+			isRendered(bodyStyle) && isRendered(htmlStyle);
+	}
 
 	var scrollingElement = function() {
 		if (isCompliant()) {
@@ -58,7 +70,9 @@ if (!('scrollingElement' in document)) (function() {
 		// Note: `document.body` could be a `frameset` element, or `null`.
 		// `tagName` is uppercase in HTML, but lowercase in XML.
 		var isFrameset = body && !/body/i.test(body.tagName);
-		return isFrameset ? getNextBodyElement(body) : body;
+		body = isFrameset ? getNextBodyElement(body) : body;
+		// If `body` is itself scrollable, it is not the `scrollingElement`.
+		return isScrollable(body) ? null : body;
 	};
 
 	if (Object.defineProperty) {
