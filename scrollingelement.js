@@ -51,10 +51,10 @@ if (!('scrollingElement' in document)) (function() {
 	};
 
 	var scrollingElement = function() {
-		var body = document.body;
 		if (isCompliant()) {
 			return document.documentElement;
 		}
+		var body = document.body;
 		// Note: `document.body` could be a `frameset` element, or `null`.
 		// `tagName` is uppercase in HTML, but lowercase in XML.
 		var isFrameset = body && !/body/i.test(body.tagName);
