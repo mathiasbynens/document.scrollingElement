@@ -1,5 +1,15 @@
 /*! https://mths.be/scrollingelement v1.5.0 by @diegoperini & @mathias | MIT license */
 if (!('scrollingElement' in document)) (function() {
+
+	function computeStyle(element) {
+		if (window.getComputedStyle) {
+			// Support Firefox < 4 which throws on a single parameter.
+			return getComputedStyle(element, null);
+		}
+		// Support Internet Explorer < 9.
+		return element.currentStyle;
+	}
+
 	function isBodyElement(element) {
 		// The `instanceof` check gives the correct result for e.g. `body` in a
 		// non-HTML namespace.
@@ -9,6 +19,7 @@ if (!('scrollingElement' in document)) (function() {
 		// Fall back to a `tagName` check for old browsers.
 		return /body/i.test(element.tagName);
 	}
+
 	function getNextBodyElement(frameset) {
 		// We use this function to be correct per spec in case `document.body` is
 		// a `frameset` but there exists a later `body`. Since `document.body` is
@@ -49,15 +60,17 @@ if (!('scrollingElement' in document)) (function() {
 		}
 		return isCompliantCached;
 	};
+
 	function isRendered(style) {
 		return style.display != 'none' && !(style.visibility == 'collapse' &&
 			/^table-(.+-group|row|column)$/.test(style.display));
 	}
+
 	function isScrollable(body) {
 		// A `body` element is scrollable if `body` and `html` both have
 		// non-`visible` overflow and are both being rendered.
-		var bodyStyle = getComputedStyle(body);
-		var htmlStyle = getComputedStyle(document.documentElement);
+		var bodyStyle = computeStyle(body);
+		var htmlStyle = computeStyle(document.documentElement);
 		return bodyStyle.overflow != 'visible' && htmlStyle.overflow != 'visible' &&
 			isRendered(bodyStyle) && isRendered(htmlStyle);
 	}
@@ -96,5 +109,4 @@ if (!('scrollingElement' in document)) (function() {
 			}
 		});
 	}
-
 }());
