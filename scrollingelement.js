@@ -1,5 +1,14 @@
 /*! https://mths.be/scrollingelement v1.5.0 by @diegoperini & @mathias | MIT license */
 if (!('scrollingElement' in document)) (function() {
+	function computeStyle(element) {
+		if ("getComputedStyle" in window) {
+			// Support Firefox < 4 (throws on a single parameter).
+			return getComputedStyle(element, null);
+		}
+		
+		// Support Internet Explorer < 9.
+		return element.currentStyle;
+	}
 	function isBodyElement(element) {
 		// The `instanceof` check gives the correct result for e.g. `body` in a
 		// non-HTML namespace.
@@ -56,8 +65,8 @@ if (!('scrollingElement' in document)) (function() {
 	function isScrollable(body) {
 		// A `body` element is scrollable if `body` and `html` both have
 		// non-`visible` overflow and are both being rendered.
-		var bodyStyle = getComputedStyle(body);
-		var htmlStyle = getComputedStyle(document.documentElement);
+		var bodyStyle = computeStyle(body);
+		var htmlStyle = computeStyle(document.documentElement);
 		return bodyStyle.overflow != 'visible' && htmlStyle.overflow != 'visible' &&
 			isRendered(bodyStyle) && isRendered(htmlStyle);
 	}
