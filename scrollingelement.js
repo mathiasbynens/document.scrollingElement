@@ -1,5 +1,5 @@
 /*! https://mths.be/scrollingelement v1.5.1 by @diegoperini & @mathias | MIT license */
-if (!('scrollingElement' in document)) (function() {
+if (typeof document !== 'undefined' && !('scrollingElement' in document)) (function() {
 
 	function computeStyle(element) {
 		if (window.getComputedStyle) {
