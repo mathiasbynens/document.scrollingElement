@@ -17,9 +17,9 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/mathiasbynens/scrollingelement.git"
+		"url": "https://github.com/mathiasbynens/document.scrollingElement.git"
 	},
-	"bugs": "https://github.com/mathiasbynens/scrollingelement/issues",
+	"bugs": "https://github.com/mathiasbynens/document.scrollingElement/issues",
 	"files": [
 		"LICENSE-MIT.txt",
 		"scrollingelement.js"
