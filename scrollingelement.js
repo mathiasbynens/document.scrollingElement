@@ -1,4 +1,4 @@
-/*! https://mths.be/scrollingelement v1.5.1 by @diegoperini & @mathias | MIT license */
+/*! https://mths.be/scrollingelement v1.5.2 by @diegoperini & @mathias | MIT license */
 if (!('scrollingElement' in document)) (function() {
 
 	function computeStyle(element) {

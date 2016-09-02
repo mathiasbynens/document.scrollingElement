@@ -1,6 +1,6 @@
 {
 	"name": "scrollingelement",
-	"version": "1.5.1",
+	"version": "1.5.2",
 	"description": "A `document.scrollingElement` polyfill.",
 	"homepage": "https://mths.be/scrollingelement",
 	"main": "scrollingelement.js",
