@@ -36,12 +36,15 @@ if (!('scrollingElement' in document)) (function() {
 		return null;
 	}
 
+	function isStandardsMode() {
+		return /^CSS1/.test(document.compatMode);
+	}
+
 	// Note: standards mode / quirks mode can be toggled at runtime via
 	// `document.write`.
 	var isCompliantCached;
 	var isCompliant = function() {
-		var isStandardsMode = /^CSS1/.test(document.compatMode);
-		if (!isStandardsMode) {
+		if (!isStandardsMode()) {
 			// In quirks mode, the result is equivalent to the non-compliant
 			// standards mode behavior.
 			return false;
@@ -85,7 +88,7 @@ if (!('scrollingElement' in document)) (function() {
 		var isFrameset = body && !/body/i.test(body.tagName);
 		body = isFrameset ? getNextBodyElement(body) : body;
 		// If `body` is itself scrollable, it is not the `scrollingElement`.
-		return body && isScrollable(body) ? null : body;
+		return body && !isStandardsMode() && isScrollable(body) ? null : body;
 	};
 
 	if (Object.defineProperty) {
