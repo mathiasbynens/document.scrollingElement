@@ -50,6 +50,15 @@
 				'[flaky test; retry as needed] In standards mode in a frameset document, the scrolling element is supposed to be `HTML`, but we’ll accept `null` too because that’s what it should be in WebKit/Blink. Actual result: ' + frameDoc.scrollingElement
 			);
 		});
+		test('In standards mode, if the `BODY` is scrollable, the scrolling element is supposed to be `HTML`', function() {
+			document.documentElement.setAttribute('style', 'overflow: scroll');
+			document.body.setAttribute('style', 'overflow: scroll');
+			ok(
+				document.scrollingElement === document.body ||
+				document.scrollingElement === document.documentElement,
+				'In standards mode, if the `BODY` is scrollable, the scrolling element is supposed to be `HTML`, but we’ll accept `BODY` too because that’s what WebKit/Blink use. Actual result: ' + document.scrollingElement.tagName
+			);
+		});
 		test('after switching to quirks mode in a non-frameset document, the scrolling element is `BODY`', function() {
 			documentWritePreserveQunit(false);
 			strictEqual(
